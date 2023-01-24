@@ -17,8 +17,9 @@ class LoginController
         ]);
 
         if ($validate) {
-            return view('login');
+            return redirect('/login');
         }
+        #TODO: verify user (Login)
         dd('koeye');
     }
 }

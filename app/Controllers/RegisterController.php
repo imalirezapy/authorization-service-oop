@@ -2,11 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Helpers\Request;
-use App\Helpers\Route;
 use App\Helpers\Validation;
+use App\Models\User;
 
-class RegisterController
+class RegisterController extends AuthController
 {
     public function index()
     {
@@ -25,6 +24,16 @@ class RegisterController
         if ($validate) {
             return redirect('/register');
         }
-        dd('koeye');
+
+        $user = new User();
+        $user->create(
+            [
+                'username' => \request('name'),
+                'email' => \request('email'),
+                'password' => md5(\request('password'))
+            ]
+        );
+
+        return $this->attempt();
     }
 }
