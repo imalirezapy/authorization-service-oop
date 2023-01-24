@@ -2,6 +2,7 @@
 
 use App\Models\DB;
 
+
 class Validation
 {
 
@@ -34,13 +35,16 @@ class Validation
         }
     }
 
-    public function unique($table , $key=null)
+    public function unique($model, $key=null)
     {
-        #TODO:complete unique validation
         if (is_null($key)) {
             $key = $this->key;
         }
-        dd(DB::staticFind($table, $key, request($this->key)));
+        $model = "\App\Models\\$model";
+        $result = (new $model())->{'find'}([$key => request($key)]);
+        if ($result) {
+            $this->setError("This $key already exists");
+        }
 
     }
 
@@ -113,7 +117,7 @@ class Validation
                     continue;
                 }
                 $item = explode(':', $item);
-                $params = explode(',', $item[1] ?? null);
+                $params = explode(',', $item[1] ?? '');
                 $this->key = $key;
                 call_user_func([$this, $item[0]], ...$params);
             }

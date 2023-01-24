@@ -58,23 +58,11 @@ class DB
     public function find($data): ?array
     {
         $this->convert($data);
-
         $stmt = $this->prepare("select * from {$this->table} where {$this->fields} = {$this->params}", $data);
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC) ?? null;
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC)[0] ?? null;
 
     }
 
-    public static function staticFind($table, $key, $value)
-    {
-        #TODO: complete static find
-        $obj = new DB();
-
-        $sql = "select * from {$table} where {$key} = :{$key}";
-        $stmt = $obj->pdo->prepare($sql);
-        $stmt->execute([":$key" => $value]);
-        dd($sql, $stmt->fetchAll(), );
-        return $stmt->fetchAll();
-    }
 
     public function get()
     {

@@ -18,12 +18,12 @@ class RegisterController
     {
         $validate = (new Validation)->validate([
             'name' => ['required'],
-            'email' => ['required', 'email', 'unique:users'],
+            'email' => ['required', 'email', 'unique:User'],
             'password' => ['required', 'password']
         ]);
 
         if ($validate) {
-            return view('login');
+            return redirect('/register');
         }
         dd('koeye');
     }
