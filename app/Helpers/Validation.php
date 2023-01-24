@@ -1,5 +1,7 @@
 <?php namespace App\Helpers;
 
+use App\Models\DB;
+
 class Validation
 {
 
@@ -16,6 +18,32 @@ class Validation
     {
         $_SESSION['errors'][$this->key] = $message;
     }
+
+    public function email()
+    {
+        $pattern = '/^[\w\.]+@([\w]+\.)+[\w]{2,4}$/';
+        if (!preg_match($pattern, trim(request($this->key)))) {
+            $this->setError('Email format not valid!');
+        }
+    }
+    public function password()
+    {
+        $pattern = '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/';
+        if (!preg_match($pattern, request($this->key))) {
+            $this->setError('Password format: <br><ul> <li>Minimum eight characters</li><li> at least one letter </li><li> at least one number!</li></ul>');
+        }
+    }
+
+    public function unique($table , $key=null)
+    {
+        #TODO:complete unique validation
+        if (is_null($key)) {
+            $key = $this->key;
+        }
+        dd(DB::staticFind($table, $key, request($this->key)));
+
+    }
+
     public function required()
     {
         if (is_null(request($this->key)) || trim(request($this->key)) == '') {

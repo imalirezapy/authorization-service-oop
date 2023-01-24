@@ -12,8 +12,8 @@ class LoginController
     public function verify()
     {
         $validate = (new Validation)->validate([
-            'email' => ['required' ],
-            'password' => ['required', 'between:1,3', 'numeric']
+            'email' => ['required', 'email'],
+            'password' => ['required', 'password']
         ]);
 
         if ($validate) {

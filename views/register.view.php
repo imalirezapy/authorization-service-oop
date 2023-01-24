@@ -17,24 +17,39 @@
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="typeEmailX-2">Name</label>
                                 <input type="text" name="name" id="typeEmailX-2" class="form-control form-control-lg" />
+                                <strong>
+                                    <span class="text-danger">
+                                        <?= error('name')?>
+                                    </span>
+                                </strong>
                             </div>
 
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="typeEmailX-2">Email</label>
                                 <input type="email" name="email" id="typeEmailX-2" class="form-control form-control-lg" />
+                                <strong>
+                                    <span class="text-danger">
+                                        <?= error('email')?>
+                                    </span>
+                                </strong>
                             </div>
 
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="typePasswordX-2">Password</label>
                                 <input type="password" name="password" id="typePasswordX-2" class="form-control form-control-lg" />
+                                <strong>
+                                    <span class="text-danger">
+                                        <?= error('password')?>
+                                    </span>
+                                </strong>
                             </div>
 
                             <!-- Checkbox -->
                             <div class="form-check d-flex justify-content-start mb-4">
                                 <input class="form-check-input" name="remember" type="checkbox" value="" id="form1Example3" />
-                                <label class="form-check-label" for="form1Example3"> Remember password </label>
+                                <label class="form-check-label" for="form1Example3"> Remember me </label>
                             </div>
 
                             <button class="btn btn-primary btn-lg btn-block" type="submit">register</button>

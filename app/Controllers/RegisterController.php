@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Helpers\Request;
 use App\Helpers\Route;
+use App\Helpers\Validation;
 
 class RegisterController
 {
@@ -15,6 +16,15 @@ class RegisterController
 
     public function store()
     {
-        dd(request());
+        $validate = (new Validation)->validate([
+            'name' => ['required'],
+            'email' => ['required', 'email', 'unique:users'],
+            'password' => ['required', 'password']
+        ]);
+
+        if ($validate) {
+            return view('login');
+        }
+        dd('koeye');
     }
 }
