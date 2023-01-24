@@ -1,7 +1,8 @@
 <?php
 function config($key=null)
 {
-    $config = require_once '../config.php';
+
+    $config = require __DIR__ . '\..\config.php';
     if (is_null($key)) {
         return $config;
     }
@@ -38,7 +39,7 @@ function request(string $key=null)
     $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
     if (!is_null($key)) {
-        return $data[$key] ?? null;
+        return trim($data[$key]) ?? null;
     }
 
     return $data;
