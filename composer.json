@@ -1,0 +1,21 @@
+{
+    "name": "authentication/imalirezapy",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Authentication\\Imalirezapy\\": "src/",
+            "App\\" : "app/"
+        },
+        "files": [
+            "public/functions.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "imalirezapy",
+            "email": "mousaviali1381@gmail.com"
+        }
+    ],
+
+    "require": {}
+}
