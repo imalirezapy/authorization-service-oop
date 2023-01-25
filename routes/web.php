@@ -16,4 +16,5 @@ $route->post('/login', [LoginController::class, 'verify']);
 $route->get('/register', [RegisterController::class, 'index']);
 $route->post('/register', [RegisterController::class, 'store']);
 
+$route->get('/logout', [LoginController::class, 'logout']);
 $route->solve();

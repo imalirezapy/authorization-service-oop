@@ -4,12 +4,18 @@ namespace App\Controllers;
 
 class AuthController
 {
-    public function attempt()
+    public function authorize()
     {
-        #TODO: Set Cookie or Session
         if (isset($_POST['remember'])) {
-            dd('set cookie');
+            if (isset($_COOKIE['USER_ID'])) {
+                unset($_COOKIE['USER_ID']);
+                setcookie('USER_ID', null, -1, '/');
+            }
+            setcookie('USER_ID');
+            setcookie('USER_ID',hash_hmac('sha256', request('email'), 'ali'), time() + 3600 * 24 * 7);
+            return redirect('/');
         }
-        dd('set session');
+        $_SESSION['email'] = request('email');
+        return redirect('/');
     }
 }

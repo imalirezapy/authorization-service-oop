@@ -29,11 +29,12 @@ class RegisterController extends AuthController
         $user->create(
             [
                 'username' => \request('name'),
+                'ip' => \getIp(),
                 'email' => \request('email'),
                 'password' => md5(\request('password'))
             ]
         );
 
-        return $this->attempt();
+        return $this->authorize();
     }
 }

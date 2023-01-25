@@ -59,23 +59,36 @@ function abort($code)
     return view($code);
 }
 
+
+function getIp()
+{
+    return ($_SERVER['HTTP_CLIENT_IP'] ?? null)
+        ? ($_SERVER['HTTP_CLIENT_IP'] ?? null)
+        : (($_SERVER['HTTP_X_FORWARDED_FOR'] ?? null)
+            ? (($_SERVER['HTTP_X_FORWARDED_FOR'] ?? null))
+            : ($_SERVER['REMOTE_ADDR'] ?? null));
+}
 function auth()
 {
-//    if ((
-//            isset($_COOKIE['token']) and
-//            hash_equals(
-//                hash_hmac('sha256', $username, $key),
-//                $_COOKIE['token']
-//            )) ||
-//        (isset($_SESSION['username']) and
-//            $_SESSION['username'] == $username
-//        )) {
-//        echo 'Hello from Quera!';
-//    } else {
-//        header('Location: login.html');
-//        die();
-//    }
+    $user = new \App\Models\User();
+    $user = $user->find(['ip' => getIp()]);
+    $email = $user['email'] ?? null;
 
+    if (
+        (
+            isset($_COOKIE['USER_ID']) and
+            hash_equals(
+                hash_hmac('sha256', $email, 'ali'),
+                $_COOKIE['USER_ID'])
+        ) ||
+        (
+            isset($_SESSION['email']) and
+            $_SESSION['email'] = $email
+        )
+
+    ) {
+        return $user;
+    }
     return false;
 }
 

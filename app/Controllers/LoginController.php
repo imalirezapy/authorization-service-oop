@@ -1,8 +1,22 @@
 <?php namespace App\Controllers;
 use App\Helpers\Validation;
+use App\Models\User;
 
-class LoginController
+class LoginController extends AuthController
 {
+
+    protected function attempt(array $data)
+    {
+        $user = new User();
+        $result = $user->find(['email' => $data['email']]);
+        if ($result) {
+            if ($result['password'] === md5($data['password'])) {
+                return $this->authorize();
+            };
+        }
+        $_SESSION['errors']['email'] = 'Email or Password is wrong!';
+        return redirect('/login');
+    }
     public function index()
     {
         return view('login');
@@ -19,7 +33,20 @@ class LoginController
         if ($validate) {
             return redirect('/login');
         }
-        #TODO: verify user (Login)
-        dd('koeye');
+
+
+        return $this->attempt(['email' => request('email'), 'password' => request('password')]);
+    }
+
+    public function logout()
+    {
+        if (isset($_SESSION['email'])) {
+            unset($_SESSION['email']);
+        }
+        if (isset($_COOKIE['USER_ID'])) {
+            unset($_COOKIE['USER_ID']);
+            setcookie('USER_ID', null, -1, '/');
+        }
+        return redirect('/login');
     }
 }

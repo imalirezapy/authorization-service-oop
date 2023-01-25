@@ -8,7 +8,7 @@ class User extends DB
     public function __construct()
     {
         parent::__construct();
-        $this->creatTable($this->table,"username VARCHAR(30) NOT Null, email VARCHAR(100) NOT NULL, password text NOT NULL");
+        $this->creatTable($this->table,"ip VARCHAR(255) NOT Null, username VARCHAR(30) NOT Null, email VARCHAR(100) NOT NULL, password text NOT NULL");
     }
 
 }
